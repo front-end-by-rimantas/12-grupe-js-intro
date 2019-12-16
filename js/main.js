@@ -364,3 +364,198 @@ console.log( daugyba( 5, null ) );
 console.log( daugyba( Infinity, 2 ) );
 console.log( daugyba( NaN, Infinity ) );
 console.log( daugyba( NaN, 8 ) );
+
+
+console.log('*****************');
+console.log('skaitmenuKiekisSkaiciuje');
+console.log('*****************');
+
+function skaitmenuKiekisSkaiciuje( number ) {
+    // patikrinimai
+    if ( typeof(number) !== 'number' ||
+         isFinite(number) === false ) {
+        return 'Pateikta netinkamo tipo reikšmė.';
+    }
+
+    // LOGIKA
+    // spejamas pradinis ilgis
+    let ilgis = (''+number).length;
+    console.log( ''+number );
+    
+
+    // pataisa del minuso
+    if ( number < 0 ) {
+        ilgis--;
+    }
+
+    // pataisa del desimtainiu skaiciu
+    if ( number % 1 !== 0 ) {
+        ilgis--;
+    }
+
+    // rezultato grazinimas
+    return ilgis;
+}
+
+console.log( skaitmenuKiekisSkaiciuje( true ) );
+console.log( skaitmenuKiekisSkaiciuje( 'asd' ) );
+console.log( skaitmenuKiekisSkaiciuje( NaN ) );
+console.log( skaitmenuKiekisSkaiciuje( Infinity ) );
+
+console.log( skaitmenuKiekisSkaiciuje( 5 ), '-', 1 );
+console.log( skaitmenuKiekisSkaiciuje( 781 ), '-', 3 );
+console.log( skaitmenuKiekisSkaiciuje( 37060123456 ), '-', 11 );
+console.log( skaitmenuKiekisSkaiciuje( -24 ), '-', 2 );
+console.log( skaitmenuKiekisSkaiciuje( 3.14159256 ), '-', 9 );
+console.log( skaitmenuKiekisSkaiciuje( -3.14159256 ), '-', 9 );
+console.log( skaitmenuKiekisSkaiciuje( 0 ), '-', 1 );
+console.log( skaitmenuKiekisSkaiciuje( -0 ), '-', 1 );
+console.log( skaitmenuKiekisSkaiciuje( +0 ), '-', 1 );
+console.log( skaitmenuKiekisSkaiciuje( 0.5000000 ), '-', 2 );
+console.log( skaitmenuKiekisSkaiciuje( 1e2 ), '-', 3 );
+console.log( skaitmenuKiekisSkaiciuje( 1e6 ), '-', 7 );
+
+console.log( skaitmenuKiekisSkaiciuje( 1e21 ), '-', 22 );
+console.log( skaitmenuKiekisSkaiciuje( 1e-21 ), '-', 22 );
+
+
+console.log('*****************');
+console.log('didziausiasSkaiciusSarase');
+console.log('*****************');
+
+function didziausiasSkaiciusSarase( list ) {
+    if ( Array.isArray(list) === false ) {
+        return 'Pateikta netinkamo tipo reikšmė.';
+    }
+    if ( list.length === 0 ) {
+        return 'Pateiktas sąrašas negali būti tuščias.';
+    }
+
+    let didziausias = -Infinity;
+
+    for ( let i=0; i<list.length; i++ ) {
+        const skaicius = list[i];
+        if ( typeof(skaicius) !== 'number' ||
+             isFinite(skaicius) === false ) {
+            continue;
+        }
+        if ( skaicius > didziausias ) {
+            didziausias = skaicius;
+        }
+    }
+
+    if ( didziausias === -Infinity ) {
+        return 'Sarase nera nei vieno normalaus skaiciaus.'
+    }
+
+    return didziausias;
+}
+
+console.log( didziausiasSkaiciusSarase( 'pomidoras' ) );
+console.log( didziausiasSkaiciusSarase( {} ) );
+console.log( didziausiasSkaiciusSarase( [] ) );
+console.log( didziausiasSkaiciusSarase( [ Infinity, Infinity, Infinity, Infinity, '115' ] ) );
+console.log( didziausiasSkaiciusSarase( [ '118' ] ) );
+
+console.log( didziausiasSkaiciusSarase( [ 1 ] ), '-', 1 );
+console.log( didziausiasSkaiciusSarase( [ 1, 2, 3 ] ), '-', 3 );
+console.log( didziausiasSkaiciusSarase( [ -5, 78, 14, 0, 18 ] ), '-', 78 );
+console.log( didziausiasSkaiciusSarase( [ 69, 69, 69, 69, 66 ] ), '-', 69 );
+console.log( didziausiasSkaiciusSarase( [ -1, -2, -3, -4, -5, -6, -7, -8 ] ), '-', -1 );
+console.log( didziausiasSkaiciusSarase( [ 0.1 ] ), '-', 0.1 );
+console.log( didziausiasSkaiciusSarase( [ 5125, 845548, Infinity, 84526 ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ 5125, 845548, Infinity, NaN ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ 5125, 845548, NaN, Infinity, 84526 ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ 5125, NaN, 845548, Infinity, 84526 ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ NaN, 845548, Infinity, 84526 ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ Infinity, 845548, 115, 84526 ] ), '-', 845548 );
+console.log( didziausiasSkaiciusSarase( [ Infinity, Infinity, Infinity, Infinity, 115 ] ), '-', 115 );
+
+
+console.log('*****************');
+console.log('isrinktiRaides');
+console.log('*****************');
+
+function isrinktiRaides( text, step ) {
+    if ( typeof(text) !== 'string' ) {
+        return 'ERROR: pirmas turi buti tekstas.';
+    }
+    if ( typeof(step) !== 'number' ||
+         isFinite(step) === false ) {
+        return 'ERROR: antras turi buti normalus skaicius';
+    }
+    if ( text.length < Math.abs(step) ) {
+        return 'ERROR: per trumpas tekstas, nurodytam zingsniu kiekiui.';
+    }
+    if ( step === 0 ) {
+        return 'ERROR: per trumpas zingsnis.';
+    }
+    if ( step % 1 !== 0 ) {
+        return 'ERROR: zingsnis turi buti naturalusis skaicius.';
+    }
+
+    let result = '';
+
+    if ( step > 0 ) {
+        for ( let i=step-1; i<text.length; i+=step ) {
+            result += text[i];
+        }
+    } else {
+        for ( let i=text.length+step; i>=0; i+=step ) {
+            result += text[i];
+        }
+    }
+
+    return result;
+}
+
+console.log( isrinktiRaides( 1561, 2 ) );
+console.log( isrinktiRaides( 'abc', '4' ) );
+console.log( isrinktiRaides( 'abc', 4 ) );
+console.log( isrinktiRaides( 'abc', 0 ) );
+console.log( isrinktiRaides( 'abcdefghijkl', 3.357 ) );
+
+console.log( isrinktiRaides( 'abcdefg', 2 ) );
+console.log( isrinktiRaides( 'abcdefghijkl', 3 ) );
+console.log( isrinktiRaides( 'abcdefg', -2 ) );
+console.log( isrinktiRaides( 'abcdefghijkl', -3 ) );
+console.log( isrinktiRaides( 'abcdef', -2 ) );
+console.log( isrinktiRaides( 'abcdef', -200 ) );
+
+
+console.log('*****************');
+console.log('dalyba');
+console.log('*****************');
+
+function dalyba( a, b ) {
+    if ( typeof(a) !== 'number' ||
+         isFinite(a) === false ||
+         typeof(b) !== 'number' ||
+         !isFinite(b) ) {
+        return 'ERROR: duok skaiciu!!!';
+    }
+    if ( b === 0 ) {
+        return 'ERROR: musu atveju is nulio dalinti nesinori... :(';
+    }
+
+    return a / b;
+}
+
+console.log( dalyba( 5, 0 ) );
+console.log( dalyba( 0.9, 'asd' ) );
+console.log( dalyba( 'asd', 0.8 ) );
+console.log( dalyba( -0.9, [-0.8] ) );
+console.log( dalyba( -0.9, Infinity ) );
+console.log( dalyba( Infinity, 0 ) );
+console.log( dalyba( 8 ) );
+console.log( dalyba() );
+console.log( dalyba( 8, true ) );
+console.log( dalyba( 8, NaN ) );
+console.log( dalyba( 8, null ) );
+
+console.log( dalyba( 5, 2 ) );
+console.log( dalyba( 0.9, 0.8 ) );
+console.log( dalyba( -0.9, 0.8 ) );
+console.log( dalyba( 0.9, -0.8 ) );
+console.log( dalyba( -0.9, -0.8 ) );
+console.log( dalyba( 948526548565456585584658685, 0.4559455745545541547547547 ) );
